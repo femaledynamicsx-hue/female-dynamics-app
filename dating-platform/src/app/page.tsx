@@ -185,11 +185,9 @@ export default function Home() {
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     >
                         {/* 
-                          TODO: Replace these empty strings with actual YouTube Video IDs 
-                          Example: for https://www.youtube.com/watch?v=dQw4w9WgXcQ 
-                          the ID is "dQw4w9WgXcQ"
+                          YouTube Video IDs extracted from Female Dynamics Channel
                         */}
-                        {["", "", ""].map((videoId, index) => (
+                        {["NaCb2M-Ps9o", "EaOgo3zzSrw", "aixphdgJF8o"].map((videoId, index) => (
                             <motion.div variants={cardVariants} key={index} className="relative aspect-video bg-charcoal-900 border border-charcoal-800 rounded-2xl overflow-hidden group shadow-xl">
                                 {videoId ? (
                                     <iframe
