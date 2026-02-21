@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Star } from 'lucide-react';
 import Link from 'next/link';
 
 interface MagneticButtonProps {
@@ -59,7 +59,14 @@ export default function Header() {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-xl leading-none tracking-tight">Female<span className="text-emerald-400 italic">Dynamics</span></span>
-                                <span className="text-[10px] text-charcoal-400 tracking-widest uppercase mt-0.5">By Dolev Hadad</span>
+                                <div className="flex items-center gap-1 mt-0.5">
+                                    <span className="text-[10px] text-charcoal-400 tracking-widest uppercase">By Dolev Hadad</span>
+                                    <div className="flex items-center gap-0.5 mr-2">
+                                        {[1, 2, 3, 4, 5].map((i) => (
+                                            <Star key={i} className="w-2.5 h-2.5 text-yellow-400 fill-yellow-400" />
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </Link>
                     </motion.div>

@@ -11,12 +11,21 @@ import { blogPosts } from '@/data/blogs';
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Dolev Hadad - Female Dynamics Authority",
+    "name": "Female Dynamics - דולב חדד | האקדמיה המרכזית לדייטינג בישראל",
     "url": "https://dolevhadad.co.il",
     "potentialAction": {
         "@type": "SearchAction",
         "target": "https://dolevhadad.co.il/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
+    },
+    "description": "האקדמיה המובילה בישראל לדינמיקה נשית, שפת גוף וביטחון עצמי. גלה איך להפוך לגבר של 1% עם דולב חדד.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Female Dynamics",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://dolevhadad.co.il/logo.png"
+        }
     }
 };
 
@@ -140,9 +149,18 @@ export default function Home() {
                 </div>
 
                 <motion.div variants={slideUpVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
-                    <div className="inline-flex items-center space-x-2 space-x-reverse border border-rosegold-accent/40 bg-rosegold-accent/10 text-rosegold-400 px-5 py-2 rounded-full text-sm font-bold tracking-wide mb-8">
-                        <Star className="w-4 h-4" />
-                        <span>מועדון אקסקלוסיבי לגברים בלבד</span>
+                    <div className="flex flex-col items-center mb-8 gap-3">
+                        <div className="inline-flex items-center space-x-2 space-x-reverse border border-rosegold-accent/40 bg-rosegold-accent/10 text-rosegold-400 px-5 py-2 rounded-full text-sm font-bold tracking-wide">
+                            <Star className="w-4 h-4" />
+                            <span>מועדון אקסקלוסיבי לגברים בלבד</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-charcoal-900/80 backdrop-blur-sm border border-charcoal-800 px-4 py-1.5 rounded-full cursor-default">
+                            <span className="text-xs font-bold text-charcoal-300">דירוג גוגל:</span>
+                            <div className="flex items-center">
+                                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />)}
+                            </div>
+                            <span className="text-xs font-bold text-white">5.0</span>
+                        </div>
                     </div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-sans font-black leading-[1.05] mb-8 text-white relative flex flex-col gap-4">
@@ -238,7 +256,7 @@ export default function Home() {
                                     transition={{ delay: idx * 0.05 }}
                                     className="relative aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden border border-charcoal-800 shadow-lg group"
                                 >
-                                    <img src={imgUrl} alt="Boss Community Testimonial" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                                    <img src={imgUrl} loading="lazy" decoding="async" alt="Boss Community Testimonial" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </motion.div>
                             ))}
@@ -270,7 +288,7 @@ export default function Home() {
                                     viewport={{ once: true }}
                                     className="snap-center shrink-0 w-[260px] md:w-[320px] aspect-[9/16] relative rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] bg-charcoal-900"
                                 >
-                                    <img src={waImgUrl} alt="WhatsApp Success Message" className="w-full h-full object-cover" />
+                                    <img src={waImgUrl} loading="lazy" decoding="async" alt="WhatsApp Success Message" className="w-full h-full object-cover" />
                                     <div className="absolute inset-0 border-2 border-charcoal-800 rounded-3xl pointer-events-none"></div>
                                 </motion.div>
                             ))}
@@ -458,6 +476,8 @@ export default function Home() {
                                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500 z-10"></div>
                                     <img
                                         src={article.imgUrl}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                                         alt={article.title}
                                     />

@@ -20,11 +20,9 @@ export default function BlogHubPage() {
 
     const categories = [
         { label: "הכל", slug: "all" },
-        { label: "מיינדסט", slug: "mindset" },
-        { label: "פסיכולוגיה של משיכה", slug: "first-date" },
-        { label: "אופטימיזציית פרופיל", slug: "profile-optimization" },
-        { label: "גישה ישירה", slug: "direct-approach" },
-        { label: "שפת גוף וביטחון", slug: "body-language" }
+        { label: "מיינדסט", slug: "מיינדסט" },
+        { label: "עבודת שטח", slug: "עבודת שטח" },
+        { label: "דיגיטל וטקסט", slug: "דיגיטל וטקסט" }
     ];
 
     const filteredPosts = activeCategory === "all"
@@ -88,6 +86,8 @@ export default function BlogHubPage() {
                             <div className="h-48 w-full bg-gradient-to-br from-charcoal-800 to-charcoal-900 relative overflow-hidden flex-shrink-0">
                                 <img
                                     src={post.imgUrl}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                                     alt={post.title}
                                 />

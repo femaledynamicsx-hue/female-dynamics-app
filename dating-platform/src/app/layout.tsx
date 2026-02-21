@@ -9,8 +9,16 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata: Metadata = {
-    title: 'היכרויות מודרניות | המדריך המקיף לדייטינג בישראל 2026',
-    description: 'גלה את הסודות לדייטינג מוצלח בישראל. סקירת אפליקציות, טיפים לדייט ראשון, משפטי פתיחה בטינדר וייעוץ זוגי.',
+    title: 'Female Dynamics | דולב חדד - המדריך המוביל לדינמיקה נשית ודייטינג מנצח',
+    description: 'האקדמיה המובילה בישראל לדינמיקה נשית, שפת גוף וביטחון עצמי. גלה איך להפוך לגבר של 1% עם דולב חדד. קורסים, סדנאות וייעוץ פרימיום לגברים.',
+    openGraph: {
+        title: 'Female Dynamics | דולב חדד',
+        description: 'האקדמיה המובילה בישראל לדינמיקה נשית. הפוך לגבר שמוביל.',
+        url: 'https://dolevhadad.co.il',
+        siteName: 'Female Dynamics',
+        locale: 'he_IL',
+        type: 'website',
+    }
 };
 
 export default function RootLayout({
