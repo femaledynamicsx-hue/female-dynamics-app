@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Clock, Star, PlayCircle, Calendar, MapPin, Users, Phone, Mail, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { blogPosts } from '@/data/blogs';
 
 // SEO JSON-LD Schema - Hebrew
 const jsonLd = {
@@ -18,26 +20,6 @@ const jsonLd = {
     }
 };
 
-// --- 12 Unique SEO Articles (Phase 12 Diversification Data) ---
-const articlesData = [
-    // Pillar 1: Psychology (מיינדסט)
-    { id: 1, category: "מיינדסט", readTime: "8 דק' קריאה", title: "חרדת גישה: הדרך המדעית לנטרל את הפחד מדחייה", excerpt: "איך המוח שלנו מתוכנת לפחד מיירוט חברתי, ואיך 'לפרוץ' את המנגנון הזה תוך כדי שניות ספורות של החלטה.", slug: "approach-anxiety-cure", imgUrl: "https://images.unsplash.com/photo-1520694478166-daaaaaec74b4?auto=format&fit=crop&q=80&w=800" },
-    { id: 2, category: "מיינדסט", readTime: "10 דק' קריאה", title: "פסיכולוגיה של משיכה: למה היא מסננת בחורים נחמדים?", excerpt: "הסיבה האבולוציונית לכך שנחמדות יתר משדרת חולשה, ואיך לאזן בין כבוד לאסרטיביות שמושכת תשומת לב.", slug: "nice-guy-syndrome-psychology", imgUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800" },
-    { id: 3, category: "מיינדסט", readTime: "6 דק' קריאה", title: "תסמונת המתחזה בדייטינג: איך לשדר ביטחון שאין לך", excerpt: "להתמודד עם התחושה שאתה לא מספיק טוב עבורה. טכניקות מיינדסט לשינוי הדימוי העצמי לפני הדייט.", slug: "imposter-syndrome-dating", imgUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" },
-    { id: 4, category: "מיינדסט", readTime: "9 דק' קריאה", title: "התאוששות מפרידה: איך לחזור למשחק חזק מאי פעם", excerpt: "המדריך המלא לגבר שעבר פרידה קשה. איך להשתמש בכאב כדלק לבניית הגרסה הכי מוצלחת של עצמך.", slug: "breakup-recovery-alpha", imgUrl: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&q=80&w=800" },
-
-    // Pillar 2: Field Work (עבודת שטח)
-    { id: 5, category: "עבודת שטח", readTime: "5 דק' קריאה", title: "איך להתחיל עם בנות בבר מבלי להיראות מטריד", excerpt: "כללי הברזל לגישה סביבתית. מתי ליצור קשר עין, איך לגשת מהזווית הנכונה, ומה משפט הפתיחה שהכי עובד.", slug: "bar-approach-naturally", imgUrl: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800" },
-    { id: 6, category: "עבודת שטח", readTime: "7 דק' קריאה", title: "שפת גוף מנצחת בדייט ראשון: הטעויות השכיחות", excerpt: "הטעויות שרוב הגברים עושים עם הידיים שלהם, ואיך ישיבה נכונה יכולה לייצר מתח מיני מהשנייה הראשונה.", slug: "first-date-body-language", imgUrl: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&q=80&w=800" },
-    { id: 7, category: "עבודת שטח", readTime: "6 דק' קריאה", title: "אמנות הקול: איך טון דיבור עמוק משפיע על משיכה", excerpt: "למה קול שקט ובטוח הרבה יותר מושך מצעקות במועדון? תרגילים פרקטיים לפיתוח קול גברי ודומיננטי.", slug: "vocal-tonality-attraction", imgUrl: "https://images.unsplash.com/photo-1516280440502-8636b0cb41e9?auto=format&fit=crop&q=80&w=800" },
-    { id: 8, category: "עבודת שטח", readTime: "8 דק' קריאה", title: "Day-Game בישראל: איך לגשת אליה ברחוב בטבעיות", excerpt: "איך לנצל סיטואציות יומיומיות, כמו המתנה בתור לאספרסו, כדי לייצר אינטראקציה לא מאיימת.", slug: "daygame-israel-guide", imgUrl: "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800" },
-
-    // Pillar 3: Social Dynamics & Digital (דינמיקה חברתית ואפליקציות)
-    { id: 9, category: "דיגיטל וטקסט", readTime: "7 דק' קריאה", title: "חוקי הברזל לטינדר 2026: איך האלגוריתם עובד היום?", excerpt: "איך ה-ELO פועל כיום, למה אסור לעשות סווייפ ימינה על כולן, ואיך להקפיץ את הפרופיל שלך לחשיפה מקסימלית.", slug: "tinder-algorithm-hacks", imgUrl: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&q=80&w=800" },
-    { id: 10, category: "דיגיטל וטקסט", readTime: "6 דק' קריאה", title: "ביו שמושך מאצ'ים בבאמבל: לקחת חזרה את השליטה", excerpt: "בבאמבל היא עושה את הצעד הראשון, אבל הביו שלך קובע מה היא תכתוב. דוגמאות לפרופילים שאי אפשר להתעלם מהם.", slug: "bumble-bio-optimization", imgUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=800" },
-    { id: 11, category: "דיגיטל וטקסט", readTime: "5 דק' קריאה", title: "משחקי טקסט: איך לשמור על מתח נכון בוואטסאפ", excerpt: "מתי מסמסים אחרי הדייט, כמה סמיילים מותר לשים, ואיך הופכים טקסט יבש לדייט סוער בפגישה השנייה.", slug: "texting-tension-whatsapp", imgUrl: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=800" },
-    { id: 12, category: "דיגיטל וטקסט", readTime: "8 דק' קריאה", title: "אוקייקיופיד מול טינדר: איפה נמצאות הנשים לדייטינג רציני?", excerpt: "סקירת פלטפורמות ההיכרויות הפעילות ביותר בישראל, ואיך להתאים את הפרופיל שלך לכל אפליקציה בהתאם למטרה.", slug: "niche-dating-apps-review", imgUrl: "https://images.unsplash.com/photo-1533038590840-1cbb6e987c26?auto=format&fit=crop&q=80&w=800" }
-];
 
 // --- Custom Magnetic Button Component ---
 interface MagneticButtonProps {
@@ -77,6 +59,7 @@ const MagneticButton = ({ children, className, onClick }: MagneticButtonProps) =
 };
 
 export default function Home() {
+    const router = useRouter();
     // Pagination & Category State
     const [activeCategory, setActiveCategory] = useState("הכל");
     const [visibleCount, setVisibleCount] = useState(6);
@@ -84,8 +67,8 @@ export default function Home() {
     const categories = ["הכל", "מיינדסט", "עבודת שטח", "דיגיטל וטקסט"];
 
     const filteredArticles = activeCategory === "הכל"
-        ? articlesData
-        : articlesData.filter(a => a.category === activeCategory);
+        ? blogPosts
+        : blogPosts.filter(a => a.category === activeCategory);
     const { scrollYProgress } = useScroll();
     const heroBgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
     const sectionBgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
@@ -173,7 +156,7 @@ export default function Home() {
                         שלוט בדינמיקה הנשית, שפר את שפת הגוף שלך והפוך לגבר שמוביל בחיים, בעסקים ובזוגיות. תוכנית ההכשרה האגרסיבית של "Female Dynamics".
                     </p>
 
-                    <MagneticButton className="bg-gradient-to-r from-emerald-500 to-emerald-400 text-charcoal-950 px-10 py-5 rounded-full text-xl font-bold shadow-[0_0_40px_rgba(52,211,153,0.3)] hover:shadow-[0_0_50px_rgba(52,211,153,0.5)] transition-shadow">
+                    <MagneticButton onClick={() => router.push('/academy')} className="bg-gradient-to-r from-emerald-500 to-emerald-400 text-charcoal-950 px-10 py-5 rounded-full text-xl font-bold shadow-[0_0_40px_rgba(52,211,153,0.3)] hover:shadow-[0_0_50px_rgba(52,211,153,0.5)] transition-shadow">
                         לחץ כאן לתחילת השינוי
                     </MagneticButton>
                 </motion.div>
@@ -258,7 +241,7 @@ export default function Home() {
                                     <Users className="w-4 h-4 text-emerald-400" /> מוגבל ל-15 משתתפים
                                 </div>
                             </div>
-                            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full bg-emerald-500 hover:bg-emerald-400 text-charcoal-950 font-black py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(52,211,153,0.2)] hover:shadow-[0_0_30px_rgba(52,211,153,0.4)] flex items-center justify-center gap-2">
+                            <motion.button onClick={() => router.push('/academy')} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full bg-emerald-500 hover:bg-emerald-400 text-charcoal-950 font-black py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(52,211,153,0.2)] hover:shadow-[0_0_30px_rgba(52,211,153,0.4)] flex items-center justify-center gap-2">
                                 שריין מקום עכשיו <ArrowLeft className="w-5 h-5" />
                             </motion.button>
                         </motion.div>
@@ -287,7 +270,7 @@ export default function Home() {
                                     <Users className="w-4 h-4 text-emerald-400" /> מוגבל ל-5 משתתפים בלבד!
                                 </div>
                             </div>
-                            <button className="w-full bg-charcoal-800 hover:bg-charcoal-700 border border-charcoal-600 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2">
+                            <button onClick={() => router.push('/academy')} className="w-full bg-charcoal-800 hover:bg-charcoal-700 border border-charcoal-600 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2">
                                 הצטרף לרשימת ההמתנה <ArrowLeft className="w-5 h-5" />
                             </button>
                         </motion.div>
@@ -340,7 +323,7 @@ export default function Home() {
                                     <Mail className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-charcoal-500" />
                                     <input type="email" placeholder="כתובת אימייל" className="w-full bg-charcoal-900 border border-charcoal-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors pl-12" />
                                 </div>
-                                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="button" className="w-full bg-emerald-500 hover:bg-emerald-400 text-charcoal-950 font-black py-4 rounded-xl transition-all mt-4">
+                                <motion.button onClick={() => router.push('/contact')} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="button" className="w-full bg-emerald-500 hover:bg-emerald-400 text-charcoal-950 font-black py-4 rounded-xl transition-all mt-4">
                                     שליחת בקשה לייעוץ
                                 </motion.button>
                             </form>

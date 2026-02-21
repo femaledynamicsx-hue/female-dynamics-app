@@ -42,8 +42,11 @@ const MagneticButton = ({ children, className, onClick }: MagneticButtonProps) =
     );
 };
 
+import { useRouter } from 'next/navigation';
+
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = useRouter();
 
     return (
         <>
@@ -85,7 +88,7 @@ export default function Header() {
                     </nav>
 
                     <div className="hidden lg:block z-50">
-                        <MagneticButton className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-8 py-2.5 rounded-full text-sm font-black shadow-[0_0_20px_rgba(52,211,153,0.4)] hover:shadow-[0_0_30px_rgba(52,211,153,0.6)] transition-shadow">
+                        <MagneticButton onClick={() => router.push('/academy')} className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-8 py-2.5 rounded-full text-sm font-black shadow-[0_0_20px_rgba(52,211,153,0.4)] hover:shadow-[0_0_30px_rgba(52,211,153,0.6)] transition-shadow">
                             התחל עכשיו
                         </MagneticButton>
                     </div>
@@ -111,7 +114,7 @@ export default function Header() {
                         <Link href="/success-stories" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">סיפורי הצלחה</Link>
                         <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">קוראים (Blog)</Link>
                         <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">יצירת קשר</Link>
-                        <button className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-10 py-4 rounded-full text-lg font-black mt-8 shadow-[0_0_20px_rgba(52,211,153,0.4)]">
+                        <button onClick={() => { setIsMobileMenuOpen(false); router.push('/academy'); }} className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-10 py-4 rounded-full text-lg font-black mt-8 shadow-[0_0_20px_rgba(52,211,153,0.4)]">
                             התחל עכשיו!
                         </button>
                     </motion.div>

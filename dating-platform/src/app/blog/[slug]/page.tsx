@@ -85,6 +85,15 @@ export default function BlogPost({ params }: { params: Promise<{ slug: string }>
                     transition={{ duration: 0.8 }}
                     className="mb-12"
                 >
+                    <div className="w-full h-64 md:h-96 relative rounded-2xl overflow-hidden mb-12 shadow-2xl border border-charcoal-800/50">
+                        <img
+                            src={postData.imgUrl}
+                            alt={postData.title}
+                            className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-charcoal-950/20" />
+                    </div>
+
                     <div className="flex flex-row-reverse justify-end items-center space-x-4 space-x-reverse text-xs font-bold tracking-widest text-emerald-400 mb-6">
                         <span className="flex items-center"><Clock className="w-3 h-3 ml-1.5" /> {postData.readTime}</span>
                         <span className="w-1 h-1 rounded-full bg-charcoal-700 mx-2"></span>

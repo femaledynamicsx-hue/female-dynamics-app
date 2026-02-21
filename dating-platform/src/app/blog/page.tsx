@@ -68,8 +68,13 @@ export default function BlogHubPage() {
                             className="group relative bg-charcoal-900 border border-charcoal-800 rounded-2xl overflow-hidden flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(52,211,153,0.1)] transition-all duration-400 cursor-pointer"
                         >
                             <div className="h-48 w-full bg-gradient-to-br from-charcoal-800 to-charcoal-900 relative overflow-hidden flex-shrink-0">
-                                <motion.div className="absolute inset-0 bg-emerald-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="absolute top-4 right-4 bg-charcoal-950/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-emerald-400 border border-charcoal-700 shadow-md">
+                                <img
+                                    src={post.imgUrl}
+                                    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                                    alt={post.title}
+                                />
+                                <motion.div className="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                                <div className="absolute top-4 right-4 z-20 bg-charcoal-950/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-emerald-400 border border-charcoal-700 shadow-md">
                                     {post.category}
                                 </div>
                             </div>

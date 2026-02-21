@@ -37,35 +37,46 @@ export default function CategoryPage({ params }: { params: Params }) {
                         {filteredPosts.map((post, index) => (
                             <div
                                 key={index}
-                                className="bg-charcoal-900 border border-charcoal-800 rounded-3xl p-8 hover:border-emerald-400/30 transition-all duration-300 group flex flex-col h-full relative overflow-hidden"
+                                className="bg-charcoal-900 border border-charcoal-800 rounded-3xl overflow-hidden hover:border-emerald-400/30 transition-all duration-300 group flex flex-col h-full relative"
                             >
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-400/10 transition-colors"></div>
-
-                                <div className="flex items-center justify-between mb-6 relative z-10">
-                                    <span className="inline-block px-3 py-1 bg-charcoal-800 text-charcoal-300 rounded-full text-sm font-medium">
-                                        {post.category}
-                                    </span>
-                                    <span className="flex items-center text-charcoal-500 text-sm font-mono">
-                                        <Clock className="w-4 h-4 ml-1" />
-                                        {post.readTime}
-                                    </span>
+                                <div className="h-48 w-full relative overflow-hidden flex-shrink-0 bg-charcoal-800">
+                                    <img
+                                        src={post.imgUrl}
+                                        className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                                        alt={post.title}
+                                    />
+                                    <div className="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                                 </div>
 
-                                <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors leading-snug relative z-10">
-                                    <Link href={`/blog/${post.slug}`} className="focus:outline-none before:absolute before:inset-0">
-                                        {post.title}
-                                    </Link>
-                                </h4>
+                                <div className="p-8 flex flex-col flex-grow relative z-20">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-400/10 transition-colors pointer-events-none"></div>
 
-                                <p className="text-charcoal-400 line-clamp-3 mb-8 relative z-10 flex-grow">
-                                    {post.excerpt}
-                                </p>
+                                    <div className="flex items-center justify-between mb-6 relative z-10">
+                                        <span className="inline-block px-3 py-1 bg-charcoal-800 text-charcoal-300 rounded-full text-sm font-medium">
+                                            {post.category}
+                                        </span>
+                                        <span className="flex items-center text-charcoal-500 text-sm font-mono">
+                                            <Clock className="w-4 h-4 ml-1" />
+                                            {post.readTime}
+                                        </span>
+                                    </div>
 
-                                <div className="flex items-center justify-between mt-auto pt-6 border-t border-charcoal-800 relative z-10">
-                                    <span className="text-charcoal-300 font-medium">{post.author}</span>
-                                    <span className="text-emerald-400 text-sm font-bold flex items-center group-hover:-translate-x-1 transition-transform">
-                                        קרא עוד <ArrowLeft className="w-4 h-4 mr-1" />
-                                    </span>
+                                    <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors leading-snug relative z-10">
+                                        <Link href={`/blog/${post.slug}`} className="focus:outline-none before:absolute before:inset-0">
+                                            {post.title}
+                                        </Link>
+                                    </h4>
+
+                                    <p className="text-charcoal-400 line-clamp-3 mb-8 relative z-10 flex-grow">
+                                        {post.excerpt}
+                                    </p>
+
+                                    <div className="flex items-center justify-between mt-auto pt-6 border-t border-charcoal-800 relative z-10">
+                                        <span className="text-charcoal-300 font-medium">{post.author}</span>
+                                        <span className="text-emerald-400 text-sm font-bold flex items-center group-hover:-translate-x-1 transition-transform">
+                                            קרא עוד <ArrowLeft className="w-4 h-4 mr-1" />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         ))}
