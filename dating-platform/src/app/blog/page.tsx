@@ -12,15 +12,7 @@ const jsonLd = {
     "url": "https://dolevhadad.co.il/blog",
     "description": "הבלוג המוביל בישראל על בניית ביטחון, שפת גוף, ואסטרטגיות דייטינג מתקדמות לגברים."
 };
-
-const blogPosts = [
-    { title: "סצנת הדייטינג הישראלית 2026: מה נשים באמת רוצות?", excerpt: "ניתוח מעמיק של הציפיות הנשיות בעידן המודרני, ואיך להפוך לגבר שמושך אותן באופן טבעי.", category: "פסיכולוגיה של משיכה", readTime: "8 דק' קריאה", link: "/blog/israeli-dating-scene-2026" },
-    { title: "חוק ה-1%: איך להתבלט באפליקציות ההיכרויות", excerpt: "האסטרטגיות שיהפכו את הפרופיל שלך באוקייקיופיד וטינדר לכזה שאי אפשר להתעלם ממנו.", category: "אופטימיזציית פרופיל", readTime: "10 דק' קריאה", link: "/blog/1-percent-dating-apps" },
-    { title: "איך להתחיל איתן במציאות (בבר או ברחוב) בביטחון מלא", excerpt: "שיטות פרקטיות למעבר מדייטינג דיגיטלי לשיחות אמיתיות שיוצרות כימיה מיידית.", category: "גישה ישירה", readTime: "6 דק' קריאה", link: "/blog/how-to-approach-irl" },
-    { title: "שפת גוף של אלפא: איך לשדר ביטחון בלי לומר מילה", excerpt: "הסודות הלא מדוברים של שפת גוף גברית שמושכת תשומת לב ותחושת סמכות טבעית.", category: "שפת גוף וביטחון", readTime: "5 דק' קריאה", link: "/blog/alpha-body-language" },
-    { title: "אתגר ה-30 יום: איך לבנות דינמיקה נשית חזקה", excerpt: "תוכנית הפעולה המלאה לבניית הביטחון, שיפור כושר השיחה, ויצירת משיכה מהרגע הראשון.", category: "התפתחות אישית", readTime: "7 דק' קריאה", link: "/blog/30-day-challenge-guide" },
-    { title: "איך שומרים על המתח המיני גם אחרי הדייט הראשון?", excerpt: "הטעויות הנפוצות שהורסות את המשיכה בדייטים הבאים, ואיך לשמור על עניין גבוה לאורך זמן.", category: "שימור משיכה", readTime: "9 דק' קריאה", link: "/blog/maintaining-attraction" }
-];
+import { blogPosts } from '@/data/blogs';
 
 export default function BlogHubPage() {
     const categories = ["הכל", "פסיכולוגיה של משיכה", "אופטימיזציית פרופיל", "גישה ישירה", "שפת גוף וביטחון"];
@@ -87,7 +79,7 @@ export default function BlogHubPage() {
                                     {post.readTime}
                                 </div>
                                 <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors leading-snug">
-                                    <Link href={post.link} className="focus:outline-none before:absolute before:inset-0">
+                                    <Link href={`/blog/${post.slug}`} className="focus:outline-none before:absolute before:inset-0">
                                         {post.title}
                                     </Link>
                                 </h4>

@@ -32,7 +32,7 @@ export default function Footer() {
                     <ul className="space-y-4 text-sm font-medium text-charcoal-400">
                         <li><Link href="/academy" className="hover:text-emerald-400 transition-colors">האקדמיה (The 1% Course)</Link></li>
                         <li><Link href="/success-stories" className="hover:text-emerald-400 transition-colors">סיפורי הצלחה</Link></li>
-                        <li><Link href="/blog-challenge" className="hover:text-emerald-400 transition-colors">אתגר ה-30 יום</Link></li>
+                        <li><Link href="/blog" className="hover:text-emerald-400 transition-colors">קוראים (Blog)</Link></li>
                         <li><Link href="/contact" className="hover:text-emerald-400 transition-colors">יצירת קשר וייעוץ אישי</Link></li>
                     </ul>
                 </div>

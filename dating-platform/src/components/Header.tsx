@@ -74,8 +74,8 @@ export default function Header() {
                             סיפורי הצלחה (Case Studies)
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all group-hover:w-full"></span>
                         </Link>
-                        <Link href="/blog-challenge" className="hover:text-white transition-colors block py-2 relative group">
-                            אתגר הבלוג (30 Days)
+                        <Link href="/blog" className="hover:text-white transition-colors block py-2 relative group">
+                            קוראים (Blog)
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all group-hover:w-full"></span>
                         </Link>
                         <Link href="/contact" className="hover:text-white transition-colors block py-2 relative group">
@@ -109,7 +109,7 @@ export default function Header() {
                         <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">ראשי</Link>
                         <Link href="/academy" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">האקדמיה</Link>
                         <Link href="/success-stories" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">סיפורי הצלחה</Link>
-                        <Link href="/blog-challenge" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">אתגר הבלוג</Link>
+                        <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">קוראים (Blog)</Link>
                         <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-serif text-white hover:text-emerald-400 transition-colors">יצירת קשר</Link>
                         <button className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-10 py-4 rounded-full text-lg font-black mt-8 shadow-[0_0_20px_rgba(52,211,153,0.4)]">
                             התחל עכשיו!
