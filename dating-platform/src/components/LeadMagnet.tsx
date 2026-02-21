@@ -47,7 +47,8 @@ export default function LeadMagnet() {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, delay: 0.1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
                         className="text-3xl md:text-5xl font-sans font-black text-white mb-6 leading-tight"
                     >
                         קבל גישה מיידית: <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-teal-400">5 הטעויות שמונעות ממך להיות גבר מוביל</span>
@@ -55,7 +56,8 @@ export default function LeadMagnet() {
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, delay: 0.2 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
                         className="text-charcoal-400 text-lg md:text-xl max-w-2xl mx-auto"
                     >
                         השאר תגלה למה ניסיונות קודמים לא עבדו, ואיך לשנות את הדינמיקה כבר בדייט הבא. המדריך יישלח אליך מיד לוואטסאפ.
@@ -65,7 +67,8 @@ export default function LeadMagnet() {
                 <motion.form
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, delay: 0.3 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
                     onSubmit={handleSubmit}
                     className="max-w-2xl mx-auto space-y-4"
                 >
