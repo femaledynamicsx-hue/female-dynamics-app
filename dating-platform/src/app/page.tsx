@@ -111,14 +111,14 @@ export default function Home() {
     };
 
     const pageTransition = {
-        initial: { opacity: 0, filter: "blur(10px)" },
-        animate: { opacity: 1, filter: "blur(0px)", transition: { duration: 1, ease: "easeInOut" } }
+        initial: { opacity: 0, y: 10 },
+        animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
     };
 
     return (
         <motion.div
             initial="initial" animate="animate" variants={pageTransition}
-            className="min-h-screen relative bg-charcoal-950 text-charcoal-50 font-sans selection:bg-emerald-400 selection:text-charcoal-950 pb-24 md:pb-0 scroll-smooth overflow-x-hidden"
+            className="min-h-screen relative bg-charcoal-950 text-charcoal-50 font-sans selection:bg-emerald-400 selection:text-charcoal-950 pb-24 md:pb-0"
             dir="rtl"
         >
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
