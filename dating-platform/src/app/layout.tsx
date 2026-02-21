@@ -4,6 +4,7 @@ import './globals.css';
 import Effects from '@/components/Effects';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
@@ -34,6 +35,7 @@ export default function RootLayout({
                 <main className="pt-20"> {/* Add padding for fixed header */}
                     {children}
                 </main>
+                <FloatingWhatsApp />
                 <Footer />
             </body>
         </html>

@@ -6,6 +6,7 @@ import { Clock, Star, PlayCircle, Calendar, MapPin, Users, Phone, Mail, ArrowLef
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { blogPosts } from '@/data/blogs';
+import LeadMagnet from '@/components/LeadMagnet';
 
 // SEO JSON-LD Schema - Hebrew
 const jsonLd = {
@@ -296,6 +297,10 @@ export default function Home() {
                     </div>
                 </div>
             </motion.section>
+
+            {/* Lead Magnet Section */}
+            <LeadMagnet />
+
             {/* Upcoming VIP Masterclasses & Live Events Section */}
             <motion.section
                 variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
