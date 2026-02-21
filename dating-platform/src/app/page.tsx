@@ -177,7 +177,6 @@ export default function Home() {
                         </p>
                     </motion.div>
 
-                    {/* YouTube/Vimeo Embedded Placeholders */}
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
@@ -185,17 +184,29 @@ export default function Home() {
                         viewport={{ once: true, margin: "-50px" }}
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     >
-                        {[1, 2, 3].map((item) => (
-                            <motion.div variants={cardVariants} key={item} className="relative aspect-video bg-charcoal-900 border border-charcoal-800 rounded-2xl overflow-hidden group cursor-pointer shadow-xl">
-                                <div className="absolute inset-0 bg-charcoal-950/40 group-hover:bg-charcoal-950/20 transition-colors z-10"></div>
-                                <div className="absolute inset-0 flex items-center justify-center z-20">
-                                    <div className="w-16 h-16 rounded-full bg-emerald-400/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform">
-                                        <PlayCircle className="w-8 h-8 text-emerald-400 fill-emerald-400/20" />
+                        {/* 
+                          TODO: Replace these empty strings with actual YouTube Video IDs 
+                          Example: for https://www.youtube.com/watch?v=dQw4w9WgXcQ 
+                          the ID is "dQw4w9WgXcQ"
+                        */}
+                        {["", "", ""].map((videoId, index) => (
+                            <motion.div variants={cardVariants} key={index} className="relative aspect-video bg-charcoal-900 border border-charcoal-800 rounded-2xl overflow-hidden group shadow-xl">
+                                {videoId ? (
+                                    <iframe
+                                        className="absolute inset-0 w-full h-full"
+                                        src={`https://www.youtube.com/embed/${videoId}?rel=0`}
+                                        title={`סיפור הצלחה ${index + 1}`}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                ) : (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-charcoal-800/50 text-charcoal-400">
+                                        <PlayCircle className="w-12 h-12 mb-3 opacity-50 text-emerald-500" />
+                                        <span className="text-sm font-medium">כאן יופיע סרטון הצלחה {index + 1}</span>
+                                        <span className="text-xs mt-1 text-charcoal-500">יש להזין מזהה יוטיוב בקוד</span>
                                     </div>
-                                </div>
-                                <div className="absolute bottom-4 right-4 z-20 bg-charcoal-950/80 px-3 py-1 text-xs text-charcoal-300 rounded font-medium backdrop-blur-md">
-                                    Case Study 0{item}
-                                </div>
+                                )}
                             </motion.div>
                         ))}
                     </motion.div>
