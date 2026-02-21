@@ -95,12 +95,20 @@ export default function Header() {
                     </nav>
 
                     <div className="hidden lg:block z-50">
-                        <MagneticButton onClick={() => router.push('/academy')} className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-8 py-2.5 rounded-full text-sm font-black shadow-[0_0_20px_rgba(52,211,153,0.4)] hover:shadow-[0_0_30px_rgba(52,211,153,0.6)] transition-shadow">
+                        <MagneticButton
+                            onClick={() => router.push('/academy')}
+                            className="bg-gradient-to-l from-emerald-500 to-teal-400 text-charcoal-950 px-8 py-2.5 rounded-full text-sm font-black shadow-[0_0_20px_rgba(52,211,153,0.4)] hover:shadow-[0_0_30px_rgba(52,211,153,0.6)] transition-shadow"
+                            aria-label="Start Now"
+                        >
                             התחל עכשיו
                         </MagneticButton>
                     </div>
 
-                    <button className="lg:hidden relative z-50 text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                    <button
+                        className="lg:hidden relative z-50 text-white"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
+                    >
                         {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
                     </button>
                 </div>

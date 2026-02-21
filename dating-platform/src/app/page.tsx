@@ -4,10 +4,13 @@ import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Clock, Star, PlayCircle, Calendar, MapPin, Users, Phone, Mail, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { blogPosts } from '@/data/blogs';
-import LeadMagnet from '@/components/LeadMagnet';
-import AboutFounder from '@/components/AboutFounder';
+import dynamic from 'next/dynamic';
+
+const LeadMagnet = dynamic(() => import('@/components/LeadMagnet'), { ssr: false });
+const AboutFounder = dynamic(() => import('@/components/AboutFounder'), { ssr: false });
 
 // SEO JSON-LD Schema - Hebrew
 const jsonLd = {
@@ -215,14 +218,20 @@ export default function Home() {
                         {["NaCb2M-Ps9o", "EaOgo3zzSrw", "aixphdgJF8o"].map((videoId, index) => (
                             <motion.div variants={cardVariants} key={index} className="relative aspect-video bg-charcoal-900 border border-charcoal-800 rounded-2xl overflow-hidden group shadow-xl">
                                 {videoId ? (
-                                    <iframe
-                                        className="absolute inset-0 w-full h-full"
-                                        src={`https://www.youtube.com/embed/${videoId}?rel=0`}
-                                        title={`סיפור הצלחה ${index + 1}`}
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    ></iframe>
+                                    <>
+                                        <iframe
+                                            className="absolute inset-0 w-full h-full"
+                                            src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
+                                            title={`סיפור הצלחה עם גבר כמוך - וידאו מספר ${index + 1}`}
+                                            aria-label={`סיפור הצלחה מבית אקדמיית Female Dynamics - וידאו מספר ${index + 1}`}
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        ></iframe>
+                                        <span className="sr-only">
+                                            סרטון המציג תלמיד באקדמיה של דולב חדד בדינמיקה נשית משתף את תהליך הטרנספורמציה והביטחון העצמי שרכש.
+                                        </span>
+                                    </>
                                 ) : (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-charcoal-800/50 text-charcoal-400">
                                         <PlayCircle className="w-12 h-12 mb-3 opacity-50 text-emerald-500" />
@@ -263,7 +272,13 @@ export default function Home() {
                                     transition={{ delay: idx * 0.05 }}
                                     className="relative aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden border border-charcoal-800 shadow-lg group"
                                 >
-                                    <img src={imgUrl} loading="lazy" decoding="async" alt="Boss Community Testimonial" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                                    <Image
+                                        src={imgUrl}
+                                        alt="Boss Community Testimonial"
+                                        fill
+                                        sizes="(max-width: 768px) 50vw, 25vw"
+                                        className="object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                    />
                                     <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </motion.div>
                             ))}
@@ -295,7 +310,13 @@ export default function Home() {
                                     viewport={{ once: true }}
                                     className="snap-center shrink-0 w-[260px] md:w-[320px] aspect-[9/16] relative rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] bg-charcoal-900"
                                 >
-                                    <img src={waImgUrl} loading="lazy" decoding="async" alt="WhatsApp Success Message" className="w-full h-full object-cover" />
+                                    <Image
+                                        src={waImgUrl}
+                                        alt="WhatsApp Success Message"
+                                        fill
+                                        sizes="(max-width: 768px) 260px, 320px"
+                                        className="object-cover"
+                                    />
                                     <div className="absolute inset-0 border-2 border-charcoal-800 rounded-3xl pointer-events-none"></div>
                                 </motion.div>
                             ))}
