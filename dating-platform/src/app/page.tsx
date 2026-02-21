@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { blogPosts } from '@/data/blogs';
 import LeadMagnet from '@/components/LeadMagnet';
+import AboutFounder from '@/components/AboutFounder';
 
 // SEO JSON-LD Schema - Hebrew
 const jsonLd = {
@@ -187,6 +188,11 @@ export default function Home() {
                 className="relative py-32 px-6 bg-charcoal-950 border-t border-charcoal-800 z-10 overflow-hidden"
             >
                 <div className="max-w-7xl mx-auto relative z-10">
+                    {/* About Founder Section (Injected directly above Video Testimonials to flow naturally inside the Dark Gray container) */}
+                    <div className="mb-24">
+                        <AboutFounder />
+                    </div>
+
                     <motion.div variants={slideUpVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-16">
                         <h2 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
                             סיפורי הצלחה בווידאו
