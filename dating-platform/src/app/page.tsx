@@ -13,26 +13,46 @@ const LeadMagnet = dynamic(() => import('@/components/LeadMagnet'), { ssr: false
 const AboutFounder = dynamic(() => import('@/components/AboutFounder'), { ssr: false });
 
 // SEO JSON-LD Schema - Hebrew
-const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Female Dynamics - דולב חדד | האקדמיה המרכזית לדייטינג בישראל",
-    "url": "https://dolevhadad.co.il",
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://dolevhadad.co.il/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
+const jsonLd = [
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Female Dynamics - דולב חדד | האקדמיה המרכזית לדייטינג בישראל",
+        "url": "https://dolevhadad.co.il",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://dolevhadad.co.il/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "description": "האקדמיה המובילה בישראל לדינמיקה נשית, שפת גוף וביטחון עצמי. גלה איך להפוך לגבר של 1% עם דולב חדד.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Female Dynamics",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dolevhadad.co.il/logo.png"
+            }
+        }
     },
-    "description": "האקדמיה המובילה בישראל לדינמיקה נשית, שפת גוף וביטחון עצמי. גלה איך להפוך לגבר של 1% עם דולב חדד.",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Female Dynamics",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://dolevhadad.co.il/logo.png"
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "קורס דינמיקה נשית ועבודת שטח",
+        "description": "תכנית הליווי והאקדמיה המרכזית לדייטינג לגברים בישראל מבית Female Dynamics.",
+        "provider": {
+            "@type": "Organization",
+            "name": "Female Dynamics",
+            "sameAs": "https://dolevhadad.co.il"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "142"
         }
     }
-};
+];
 
 
 // --- Custom Magnetic Button Component ---
