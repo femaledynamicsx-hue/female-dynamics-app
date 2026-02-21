@@ -46,17 +46,16 @@ export default function BlogHubPage() {
                     </motion.div>
 
                     {/* Category Filter Pills */}
-                    <motion.div initial={{ opacity: 0, opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="overflow-x-auto pb-4 no-scrollbar">
-                        <div className="flex space-x-3 space-x-reverse min-w-max">
-                            <div className="flex items-center text-charcoal-500 ml-2">
-                                <Filter className="w-4 h-4 mr-1" />
-                            </div>
-                            {categories.map((cat, idx) => (
-                                <button key={idx} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${idx === 0 ? 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/30' : 'bg-charcoal-900 text-charcoal-400 hover:bg-charcoal-800 border border-charcoal-800'}`}>
-                                    {cat}
-                                </button>
-                            ))}
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="overflow-x-auto pb-4 no-scrollbar">                        <div className="flex space-x-3 space-x-reverse min-w-max">
+                        <div className="flex items-center text-charcoal-500 ml-2">
+                            <Filter className="w-4 h-4 mr-1" />
                         </div>
+                        {categories.map((cat, idx) => (
+                            <button key={idx} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${idx === 0 ? 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/30' : 'bg-charcoal-900 text-charcoal-400 hover:bg-charcoal-800 border border-charcoal-800'}`}>
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                     </motion.div>
                 </div>
 
