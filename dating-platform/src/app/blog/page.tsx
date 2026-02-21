@@ -13,9 +13,23 @@ const jsonLd = {
     "description": "הבלוג המוביל בישראל על בניית ביטחון, שפת גוף, ואסטרטגיות דייטינג מתקדמות לגברים."
 };
 import { blogPosts } from '@/data/blogs';
+import { useState } from 'react';
 
 export default function BlogHubPage() {
-    const categories = ["הכל", "פסיכולוגיה של משיכה", "אופטימיזציית פרופיל", "גישה ישירה", "שפת גוף וביטחון"];
+    const [activeCategory, setActiveCategory] = useState("all");
+
+    const categories = [
+        { label: "הכל", slug: "all" },
+        { label: "מיינדסט", slug: "mindset" },
+        { label: "פסיכולוגיה של משיכה", slug: "first-date" },
+        { label: "אופטימיזציית פרופיל", slug: "profile-optimization" },
+        { label: "גישה ישירה", slug: "direct-approach" },
+        { label: "שפת גוף וביטחון", slug: "body-language" }
+    ];
+
+    const filteredPosts = activeCategory === "all"
+        ? blogPosts
+        : blogPosts.filter(post => post.category === activeCategory);
 
     return (
         <div className="min-h-screen bg-charcoal-950 text-charcoal-50 font-sans selection:bg-emerald-400 selection:text-charcoal-950 py-32" dir="rtl">
@@ -49,8 +63,12 @@ export default function BlogHubPage() {
                                 <Filter className="w-4 h-4 mr-1" />
                             </div>
                             {categories.map((cat, idx) => (
-                                <button key={idx} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${idx === 0 ? 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/30' : 'bg-charcoal-900 text-charcoal-400 hover:bg-charcoal-800 border border-charcoal-800'}`}>
-                                    {cat}
+                                <button
+                                    key={idx}
+                                    onClick={() => setActiveCategory(cat.slug)}
+                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${activeCategory === cat.slug ? 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/30' : 'bg-charcoal-900 text-charcoal-400 hover:bg-charcoal-800 border border-charcoal-800'}`}
+                                >
+                                    {cat.label}
                                 </button>
                             ))}
                         </div>
@@ -58,7 +76,7 @@ export default function BlogHubPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {blogPosts.map((post, index) => (
+                    {filteredPosts.map((post, index) => (
                         <motion.article
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}

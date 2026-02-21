@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="he" dir="rtl">
-            <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+            <body className={`${inter.variable} ${playfair.variable} font-sans overflow-x-hidden w-full bg-charcoal-950 text-charcoal-50`}>
                 <Effects />
                 <Header />
                 <main className="pt-20"> {/* Add padding for fixed header */}

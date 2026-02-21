@@ -210,6 +210,74 @@ export default function Home() {
                             </motion.div>
                         ))}
                     </motion.div>
+
+                    {/* Visual Proof Section - Boss Community Images */}
+                    <div className="mt-24">
+                        <motion.h3
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-2xl font-bold mb-8 text-charcoal-200 pr-4 border-r-4 border-emerald-400"
+                        >
+                            גברים בדיוק כמוך שמצליחים עם נשים באונליין וברחוב
+                        </motion.h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_7358-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_6225-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_6213-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_3836-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_5742-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_5746-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_5708-scaled.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2024/11/IMG_6199-scaled.jpeg"
+                            ].map((imgUrl, idx) => (
+                                <motion.div
+                                    key={`image-${idx}`}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.05 }}
+                                    className="relative aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden border border-charcoal-800 shadow-lg group"
+                                >
+                                    <img src={imgUrl} alt="Boss Community Testimonial" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* WhatsApp Testimonials Section */}
+                    <div className="mt-24">
+                        <motion.h3
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-2xl font-bold mb-8 text-charcoal-200 pr-4 border-r-4 border-emerald-400"
+                        >
+                            ביקורות אותנטיות ותוצאות מהשטח
+                        </motion.h3>
+                        <div className="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x w-full">
+                            {[
+                                "https://femaledynamics.net/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-31-at-10.09.19.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-31-at-10.09.17.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-31-at-10.09.20-1.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-31-at-10.09.18.jpeg",
+                                "https://femaledynamics.net/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-31-at-10.09.19-1-2.jpeg"
+                            ].map((waImgUrl, idx) => (
+                                <motion.div
+                                    key={`wa-${idx}`}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    className="snap-center shrink-0 w-[260px] md:w-[320px] aspect-[9/16] relative rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] bg-charcoal-900"
+                                >
+                                    <img src={waImgUrl} alt="WhatsApp Success Message" className="w-full h-full object-cover" />
+                                    <div className="absolute inset-0 border-2 border-charcoal-800 rounded-3xl pointer-events-none"></div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </motion.section>
             {/* Upcoming VIP Masterclasses & Live Events Section */}
