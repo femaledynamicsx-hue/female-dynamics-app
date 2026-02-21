@@ -1,0 +1,310 @@
+const https = require('https');
+const { getParameters } = require('codesandbox/lib/api/define');
+
+const htmlContent = `<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דולב חדד | Female Dynamics - Advanced Animations</title>
+    <script src="https://cdn.tailwindcss.com"></` + `script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></` + `script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></` + `script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></` + `script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></` + `script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: { 400: '#888888', 500: '#6d6d6d', 700: '#52525B', 800: '#454545', 900: '#1c1c1c', 950: '#0a0a0a' },
+                        rosegold: { accent: '#B76E79', 400: '#c58a93', 600: '#9d5a64' }
+                    },
+                    fontFamily: {
+                        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+                        serif: ['Georgia', 'ui-serif', 'serif'],
+                    }
+                }
+            }
+        }
+    </` + `script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { opacity: 0; filter: blur(10px); transition: opacity 1s, filter 1s; }
+        body.loaded { opacity: 1; filter: blur(0px); }
+        .no-cursor { cursor: none; }
+        body * { cursor: none; }
+    </style>
+</head>
+<body class="bg-charcoal-950 text-white font-sans selection:bg-emerald-400 selection:text-charcoal-950 pb-24 md:pb-0 overflow-x-hidden no-cursor">
+    <div id="root"></div>
+    <script type="text/babel">
+        // --- REACT COMPONENT CODE WILL BE INJECTED BY INDEX.JS ---
+    </` + `script>
+</body>
+</html>`;
+
+const jsContent = `
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import { motion, AnimatePresence } from "framer-motion";
+
+const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+const datingArticles = [
+    { "id": 1, "title": "חרדת ביצוע בדייט ראשון: המדריך המלא לגבר", "slug": "first-date-anxiety", "category": "Mindset", "excerpt": "איך להפסיק להזיע לפני הדייט ולשדר ביטחון אמיתי שממגנט נשים מהשנייה הראשונה." },
+    { "id": 2, "title": "הודעת הפתיחה המושלמת באינסטגרם (שלא תשאיר אותך בסין)", "slug": "instagram-opener", "category": "Texting", "excerpt": "תשכח מ'היי מה קורה'. השיטות המוכחות של 2026 להתחיל שיחה שמובילה לדייט." },
+    { "id": 3, "title": "שפת גוף מנצחת: מה שהיא קוראת בלי שאתה מדבר", "slug": "alpha-body-language", "category": "Field Work", "excerpt": "80% מהתקשורת היא לא מילולית. כך תעמוד, תסתכל ותזוז כמו גבר של 1%." },
+    { "id": 4, "title": "המעבר מידיד למאהב: איך לצאת מה-Friendzone", "slug": "escape-friendzone", "category": "Mindset", "excerpt": "הטעות שרוב הגברים עושים שגורמת לה לראות בך 'אח ציפייה', ואיך להפוך את הקערה." },
+    { "id": 5, "title": "איך לבנות פרופיל באפליקציות שמביא מאצ'ים איכותיים", "slug": "tinder-profile-hacks", "category": "Online Dating", "excerpt": "האלגוריתם השתנה. אלו התמונות והטקסטים שאתה חייב בפרופיל שלך היום." },
+    { "id": 6, "title": "חוק ה-3 שניות: איך לגשת למישהי בבר בלי לגמגם", "slug": "3-second-rule", "category": "Field Work", "excerpt": "הטכניקה הפסיכולוגית שתעלים את הפחד מגישה ותגרום לך לפעול על אוטומט." },
+    { "id": 7, "title": "פסיכולוגיה של משיכה: למה טריקים זולים כבר לא עובדים", "slug": "attraction-psychology", "category": "Mindset", "excerpt": "נשים ב-2026 מריחות פיקאפ מקילומטר. איך לייצר משיכה אותנטית ועמוקה." },
+    { "id": 8, "title": "הטסטים שנשים עושות לך בדייט (ואיך לעבור אותם)", "slug": "shit-tests-guide", "category": "Psychology", "excerpt": "היא לא סתם עוקצת אותך, היא בודקת את עמוד השדרה שלך. כך תגיב נכון." },
+    { "id": 9, "title": "דייטינג אחרי פרידה: מתי נכון לחזור לשוק?", "slug": "dating-after-breakup", "category": "Mindset", "excerpt": "המדריך להתאוששות גברית. מתי אתה באמת מוכן לצאת שוב בלי לשדר ייאוש." },
+    { "id": 10, "title": "לאן לקחת אותה? 5 רעיונות לדייט ראשון שאינם בית קפה", "slug": "first-date-ideas", "category": "Field Work", "excerpt": "שבור את השגרה. מקומות שיוצרים אינטימיות וחיבור מהיר הרבה יותר מישיבה מול קפה." }
+];
+
+const categoriesData = {
+    "#mindset": {
+        title: "מיינדסט ופסיכולוגיה",
+        description: "הבסיס העמוק לכל שינוי. קטגוריית המיינדסט נועדה לבסס עקרונות של התפתחות אישית, דימוי עצמי גבוה, ופסיכולוגיה של שפע מול חרדת ביצוע.",
+        filterFn: (article) => ["Mindset", "Psychology"].includes(article.category)
+    },
+    "#field-work": {
+        title: "עבודת שטח וגישה (Approaching)",
+        description: "כלים מעשיים לשטח. איך להתחיל שיחה במציאות, שפת גוף נכונה, עוצמת קול (Vocal Tonality), ויצירת אינטראקציה טבעית ולא מאיימת.",
+        filterFn: (article) => article.category === "Field Work"
+    },
+    "#online": {
+        title: "התכתבויות ודיגיטל (Text Game & Apps)",
+        description: "אפליקציות דייטינג ב-2026. טכניקות המקסום לטינדר, בניית פרופילים מבוססים פסיכולוגיה, ומשחקי טקסט ששומרים על מתח תמידי.",
+        filterFn: (article) => ["Texting", "Online Dating"].includes(article.category)
+    }
+};
+
+const Breadcrumbs = ({ categoryTitle }) => (
+    <nav className="flex text-emerald-500 text-sm font-bold mb-8" aria-label="Breadcrumb">
+        <ol className="inline-flex items-center space-x-2 space-x-reverse">
+            <li className="inline-flex items-center">
+                <a href="#home" className="hover:text-emerald-400 transition-colors">ראשי</a>
+            </li>
+            <li>
+                <div className="flex items-center">
+                    <span className="mx-2 text-charcoal-600">/</span>
+                    <span className="text-charcoal-300" aria-current="page">{categoryTitle}</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+);
+
+const ArticleGrid = ({ articles }) => (
+    <motion.div 
+        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
+        variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
+        {articles.map((article) => (
+            <motion.article 
+                key={article.id}
+                variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0 }
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-charcoal-900 border border-charcoal-800 rounded-2xl overflow-hidden cursor-pointer shadow-xl group flex flex-col"
+            >
+                <div className="h-48 bg-charcoal-950 flex items-center justify-center p-6 text-charcoal-600 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 to-transparent"></div>
+                    <span className="text-6xl opacity-10 font-serif absolute bottom-[-10px] right-4">{article.id}</span>
+                    <span className="relative z-10 text-lg uppercase font-bold tracking-widest text-charcoal-500">[{article.slug}]</span>
+                </div>
+                <div className="p-8 flex-grow flex flex-col">
+                    <div className="text-xs text-emerald-400 font-bold mb-3 uppercase tracking-wider">{article.category}</div>
+                    <h3 className="text-xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors leading-snug">{article.title}</h3>
+                    <p className="text-charcoal-400 text-sm leading-relaxed">{article.excerpt}</p>
+                </div>
+            </motion.article>
+        ))}
+    </motion.div>
+);
+
+const CategoryView = ({ hash }) => {
+    const data = categoriesData[hash];
+    if (!data) return null;
+
+    const filteredArticles = datingArticles.filter(data.filterFn);
+
+    return (
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }} className="pt-32 pb-24 px-6 min-h-screen">
+            <div className="max-w-7xl mx-auto">
+                <Breadcrumbs categoryTitle={data.title} />
+                
+                <div className="mb-16 border-b border-charcoal-800 pb-12">
+                    <h1 className="text-4xl md:text-6xl font-sans font-black text-white mb-6">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-teal-400">{data.title}</span>
+                    </h1>
+                    <p className="text-xl text-charcoal-300 max-w-3xl leading-relaxed">
+                        {data.description}
+                    </p>
+                </div>
+
+                <ArticleGrid articles={filteredArticles} />
+            </div>
+        </motion.div>
+    );
+};
+
+const HomeView = () => (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+        {/* Hero */}
+        <section className="relative pt-44 pb-20 md:pt-56 md:pb-32 px-6 flex flex-col items-center justify-center min-h-[90vh] text-center overflow-hidden">
+            <div className="absolute inset-0 z-0 bg-charcoal-950 pointer-events-none scale-110 flex items-center justify-center">
+                <motion.div animate={{ rotate: 360 }} transition={{ duration: 50, repeat: Infinity, ease: "linear" }} className="w-[80vw] h-[80vw] absolute rounded-full bg-gradient-to-tr from-emerald-500/10 to-teal-500/10 blur-[100px]" />
+            </div>
+            <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
+                <div className="inline-flex items-center space-x-2 space-x-reverse border border-rosegold-accent/40 bg-rosegold-accent/10 text-rosegold-400 px-5 py-2 rounded-full text-sm font-bold tracking-wide mb-8">
+                    ★ <span>מועדון אקסקלוסיבי לגברים בלבד</span>
+                </div>
+                <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-sans font-black leading-[1.05] mb-8 text-white flex flex-col gap-4">
+                    <span className="block">הזמן שלך להפוך</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-teal-400 block pb-2 drop-shadow-xl">ל-גבר ה-1%</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-charcoal-300 mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
+                    פלטפורמת התוכן והייעוץ המובילה לישראלים. שלוט בדינמיקה הנשית, שפר את שפת הגוף מול העולם האמיתי והדיגיטלי.
+                </p>
+            </div>
+        </section>
+
+        {/* Category Clusters Grid */}
+        <section className="py-24 px-6 bg-charcoal-900 border-t border-charcoal-800">
+            <div className="max-w-7xl mx-auto text-center">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">בחר את אזור <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-teal-400">ההתפתחות</span> שלך</h2>
+                <p className="text-charcoal-400 mb-16 text-lg max-w-2xl mx-auto">חקור את הקטגוריות המקצועיות שלנו ולמד את הסודות הכמוסים ביותר בעולם הדייטינג.</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <a href="#mindset" className="block focus:outline-none text-right">
+                        <motion.div whileHover={{ y: -10, scale: 1.02 }} className="bg-charcoal-950 border border-charcoal-800 p-10 rounded-3xl h-full shadow-lg group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-[100px] pointer-events-none"></div>
+                            <h3 className="text-3xl font-black text-white mb-4 group-hover:text-emerald-400 transition-colors">מיינדסט ופסיכולוגיה</h3>
+                            <p className="text-charcoal-400 leading-relaxed mb-8">ביטחון עצמי אבסולוטי, שפת גוף ומסגרת פסיכולוגית מנצחת שמושכת ולא רודפת.</p>
+                            <span className="text-emerald-400 font-bold text-sm bg-emerald-500/10 px-4 py-2 rounded-full group-hover:bg-emerald-500 group-hover:text-charcoal-900 transition-all">כניסה לקטגוריה ⟵</span>
+                        </motion.div>
+                    </a>
+                    <a href="#field-work" className="block focus:outline-none text-right">
+                        <motion.div whileHover={{ y: -10, scale: 1.02 }} className="bg-charcoal-950 border border-charcoal-800 p-10 rounded-3xl h-full shadow-lg group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-[100px] pointer-events-none"></div>
+                            <h3 className="text-3xl font-black text-white mb-4 group-hover:text-emerald-400 transition-colors">עבודת שטח (Approach)</h3>
+                            <p className="text-charcoal-400 leading-relaxed mb-8">איך לגשת נכון במציאות (ברים, רחוב, קניונים) ולנהל אינטראקציה טבעית.</p>
+                            <span className="text-emerald-400 font-bold text-sm bg-emerald-500/10 px-4 py-2 rounded-full group-hover:bg-emerald-500 group-hover:text-charcoal-900 transition-all">כניסה לקטגוריה ⟵</span>
+                        </motion.div>
+                    </a>
+                    <a href="#texting" className="block focus:outline-none text-right">
+                        <motion.div whileHover={{ y: -10, scale: 1.02 }} className="bg-charcoal-950 border border-charcoal-800 p-10 rounded-3xl h-full shadow-lg group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-[100px] pointer-events-none"></div>
+                            <h3 className="text-3xl font-black text-white mb-4 group-hover:text-emerald-400 transition-colors">טקסט ודיגיטל</h3>
+                            <p className="text-charcoal-400 leading-relaxed mb-8">טינדר, באמבל, אינסטגרם ומשחקי וואטסאפ וירטואליים לשמירת מתח.</p>
+                            <span className="text-emerald-400 font-bold text-sm bg-emerald-500/10 px-4 py-2 rounded-full group-hover:bg-emerald-500 group-hover:text-charcoal-900 transition-all">כניסה לקטגוריה ⟵</span>
+                        </motion.div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        {/* Complete Blog Grid on Home Page */}
+        <section className="py-24 px-6 bg-charcoal-900 border-t border-charcoal-800 relative z-10">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">המאמרים <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-teal-400">הנבחרים</span></h2>
+                    <p className="text-charcoal-400 text-lg max-w-2xl mx-auto">10 אסטרטגיות שכל גבר איכותי חייב לשלוט בהן כדי למשוך את הנשים שהוא באמת רוצה.</p>
+                </div>
+                <ArticleGrid articles={datingArticles} />
+            </div>
+        </section>
+    </motion.div>
+);
+
+const App = () => {
+    const [route, setRoute] = useState(window.location.hash || '#home');
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            setRoute(window.location.hash || '#home');
+            window.scrollTo(0, 0);
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
+
+    // Ensure body loaded class is set for transitions
+    useEffect(() => {
+        document.body.classList.add('loaded');
+    }, []);
+
+    return (
+        <main className="flex flex-col min-h-screen">
+            {/* Persistent Navbar */}
+            <header className="fixed top-0 left-0 w-full z-50 bg-charcoal-950/80 backdrop-blur-xl border-b border-charcoal-800/80 shadow-lg">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between flex-row-reverse">
+                    <a href="#home" className="font-serif text-2xl font-bold tracking-wider text-white">דולב<span className="text-rosegold-accent italic mr-1">חדד</span></a>
+                    
+                    {/* Desktop Categories Menu */}
+                    <nav className="hidden lg:flex items-center space-x-8 space-x-reverse text-sm font-semibold text-charcoal-300">
+                        <a href="#home" className={\`hover:text-emerald-400 transition-colors \${route === '#home' || route === '' ? 'text-emerald-400' : ''}\`}>בית</a>
+                        <a href="#mindset" className={\`hover:text-emerald-400 transition-colors \${route === '#mindset' ? 'text-emerald-400' : ''}\`}>מיינדסט</a>
+                        <a href="#field-work" className={\`hover:text-emerald-400 transition-colors \${route === '#field-work' ? 'text-emerald-400' : ''}\`}>עבודת שטח</a>
+                        <a href="#online" className={\`hover:text-emerald-400 transition-colors \${route === '#online' ? 'text-emerald-400' : ''}\`}>אונליין</a>
+                    </nav>
+                    
+                    <div className="hidden lg:block">
+                        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-emerald-500 text-charcoal-950 px-6 py-2 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(52,211,153,0.3)]">
+                            אזור אישי
+                        </motion.button>
+                    </div>
+                </div>
+            </header>
+
+            {/* Dynamic Router View */}
+            <div className="flex-grow">
+                <AnimatePresence mode="wait">
+                    <motion.div key={route} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                        {route === '#home' || route === '' ? <HomeView /> : <CategoryView hash={route} />}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+        </main>
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+`;
+
+const parameters = getParameters({
+    files: {
+        "package.json": {
+            content: {
+                dependencies: {
+                    react: "18.2.0",
+                    "react-dom": "18.2.0",
+                    "framer-motion": "10.16.4"
+                }
+            }
+        },
+        "public/index.html": {
+            content: htmlContent
+        },
+        "src/index.js": {
+            content: jsContent
+        }
+    }
+});
+
+const url = "https://codesandbox.io/api/v1/sandboxes/define?parameters=" + parameters;
+console.log(url);

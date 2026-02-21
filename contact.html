@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תיאום אבחון | Female Dynamics - צוות דולב חדד</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Outfit:wght@600;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);">
+    <header id="main-header" class="scrolled">
+        <nav class="container">
+            <a href="index.html" class="logo"><img src="https://femaledynamics.net/wp-content/uploads/2024/06/IMG_8367-1448x2048.png" alt="Female Dynamics Logo" style="height: 50px; width: auto;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">בית</a></li>
+                <li><a href="testimonials.html">הוכחות ותוצאות מהשטח</a></li>
+                <li><a href="blog.html">אתגר 30 סודות לאלפא (בלוג)</a></li>
+                <li><a href="contact.html" class="active" class="btn btn-outline"
+                        style="padding: 0.5rem 1.2rem; margin-right: 1.5rem;">לשיחת אבחון טלפונית</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="min-height: 100vh; padding-top: 150px; display: flex; align-items: center; justify-content: center;">
+        <section class="container" style="max-width: 800px; width: 100%;">
+            <div class="card shadow-gold" style="border: 3px solid var(--primary); padding: 4rem 3rem;">
+                <div class="section-header" style="margin-bottom: 3rem;">
+                    <span class="section-tag">ELITE APPLICATION</span>
+                    <h1 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem;">הכל מתחיל משליחת פרטים</h1>
+                    <p style="font-size: 1.2rem; color: #ccc;">אנחנו לא מוכרים חלומות – אנחנו בונים גברים שמשיגים נשים
+                        שמושכות אותם באמת. השאר פרטים מלאים וסיבה אחת למה דווקא לך מגיע לעבור טרנספורמציה.</p>
+                </div>
+
+                <form id="lead-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label for="name">שם מלא:</label>
+                        <input type="text" id="name" class="form-control" placeholder="לדוגמה: יונתן כהן" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">טלפון לתיאום שיחה:</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="050-0000000" pattern="[0-9\-]*"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">גיל:</label>
+                        <input type="number" id="age" class="form-control" placeholder="לדוגמה: 26" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">מה חסר לך היום בקשר עם נשים? ולמה אתה רוצה להשתנות דווקא עכשיו?</label>
+                        <textarea id="reason" class="form-control" rows="4"
+                            placeholder="תפרט בכמה משפטים. אנחנו מסננים. מי שלא רציני - שלא יפנה." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary shadow-gold"
+                        style="width: 100%; font-size: 1.5rem; padding: 1.5rem;">שלח עכשיו את הפנייה</button>
+                    <p style="text-align: center; color: var(--text-dim); margin-top: 1rem; font-size: 1rem;">צוות
+                        הסינון של Female Dynamics בראשות דולב חדד יענה לפניות הרציניות שבינינו עד 24 שעות מרגע השליחה.
+                    </p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="main.js"></script>
+</body>
+
+</html>

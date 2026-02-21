@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דולב חדד | Female Dynamics</title>
+
+    <!-- Heebo Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: {
+                            400: '#a1a1aa',
+                            500: '#71717a',
+                            700: '#3f3f46',
+                            800: '#27272a',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Heebo', 'system-ui', 'sans-serif'],
+                        serif: ['Georgia', 'ui-serif', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- AOS Animation Library (CSS) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .ambient-glow {
+            animation: spin-slow 60s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-zinc-950 text-white font-sans selection:bg-emerald-400 selection:text-zinc-950 flex flex-col min-h-screen overflow-x-hidden">
+
+    <!-- HEADER / NAVIGATION (From layout.tsx) -->
+    <header
+        class="fixed top-0 right-0 w-full z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/80 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="font-serif text-2xl font-bold tracking-wider text-white">
+                דולב<span class="text-yellow-500 italic mr-1">חדד</span>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-zinc-300">
+                <a href="#" class="hover:text-emerald-400 transition-colors">בית</a>
+                <a href="#articles" class="hover:text-emerald-400 transition-colors">מאמרים</a>
+            </nav>
+
+            <button
+                class="bg-emerald-500 text-zinc-950 px-6 py-2 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(52,211,153,0.3)] hover:scale-105 active:scale-95 transition-transform">
+                אזור אישי
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT (From page.tsx) -->
+    <main class="flex-grow pt-20">
+        <!-- HERO SECTION -->
+        <section
+            class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center justify-center min-h-[80vh] text-center border-b border-zinc-800">
+            <!-- Animated Background Glow -->
+            <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+                <div
+                    class="ambient-glow w-[120vw] h-[120vw] absolute rounded-full bg-gradient-to-tr from-emerald-500/5 to-yellow-500/5 blur-[120px]">
+                </div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
+                <div data-aos="zoom-in" data-aos-delay="100"
+                    class="inline-flex items-center gap-2 border border-yellow-500/40 bg-yellow-500/10 text-yellow-500 px-5 py-2 rounded-full text-sm font-bold tracking-wide mb-8">
+                    ★ <span>מועדון אקסקלוסיבי לגברים בלבד</span>
+                </div>
+
+                <h1 data-aos="zoom-in" data-aos-delay="200"
+                    class="text-5xl md:text-7xl lg:text-[6rem] font-black leading-[1.05] mb-8 text-white flex flex-col gap-4">
+                    <span class="block">הזמן שלך להפוך</span>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-yellow-500 block pb-2 drop-shadow-xl">ל-גבר
+                        ה-1%</span>
+                </h1>
+
+                <p data-aos="zoom-in" data-aos-delay="300"
+                    class="text-xl md:text-2xl text-zinc-300 mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
+                    פלטפורמת התוכן והייעוץ המובילה לישראלים. שלוט בדינמיקה הנשית, שפר את שפת הגוף מול העולם האמיתי
+                    והדיגיטלי.
+                </p>
+            </div>
+        </section>
+
+        <!-- BLOG GRID SECTION -->
+        <section id="articles" class="py-24 px-6 bg-zinc-950 relative z-10 scroll-mt-20">
+            <div class="max-w-7xl mx-auto">
+                <div data-aos="fade-up" class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">המאמרים <span
+                            class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-yellow-500">הנבחרים</span>
+                    </h2>
+                    <p class="text-zinc-400 text-lg max-w-2xl mx-auto">אסטרטגיות שכל גבר איכותי חייב לשלוט בהן כדי למשוך
+                        את הנשים שהוא באמת רוצה.</p>
+                </div>
+
+                <!-- EMPTY TARGET FOR APP.JS TO INJECT ARTICLES -->
+                <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-right"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-900 border-t border-zinc-800 py-12 text-center text-zinc-500">
+        <p>© 2026 דולב חדד - כל הזכויות שמורות.</p>
+    </footer>
+
+    <!-- AOS Animation Library (JavaScript) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Link the JavaScript files -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
