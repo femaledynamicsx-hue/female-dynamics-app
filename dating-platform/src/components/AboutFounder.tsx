@@ -7,7 +7,7 @@ import Image from 'next/image';
 // A simple CountUp hook/component tailored for our needs
 const useCountUp = (end: number, duration: number = 2000, startWhenRef: React.RefObject<Element | null>) => {
     const [count, setCount] = useState(0);
-    const isInView = useInView(startWhenRef, { once: true, amount: 0.5 });
+    const isInView = useInView(startWhenRef, { once: true, amount: 0.1 });
 
     useEffect(() => {
         if (!isInView) return;
@@ -91,18 +91,14 @@ export default function AboutFounder() {
                     >
                         <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:max-w-full lg:mx-0 rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-charcoal-800/50 group">
                             {/* Placeholder Image - Update with actual founder image later */}
-                            <div className="absolute inset-0 bg-charcoal-900 border border-charcoal-800 animate-pulse flex border-dashed rounded-[2rem] flex-col items-center justify-center">
-                                <span className="text-charcoal-500 font-bold tracking-widest uppercase">תמונה שלך תופיע כאן</span>
-                            </div>
-
-                            {/* Ideally, replace above placeholder with an <Image> tag like this: */}
-                            {/* <Image 
-                                src="/images/founder/dolev-portrait.jpg" // Path to the actual image
+                            <Image
+                                src="https://femaledynamics.net/wp-content/uploads/2023/12/%D7%90%D7%95%D7%93%D7%95%D7%9C%D7%91.jpg"
                                 alt="דולב חדד - מייסד Female Dynamics"
                                 fill
-                                className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                                className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                                 sizes="(max-width: 768px) 100vw, 50vw"
-                            /> */}
+                                priority
+                            />
 
                             {/* Gradient Overlay for blending */}
                             <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-charcoal-950/20 to-transparent opacity-80 lg:opacity-60"></div>

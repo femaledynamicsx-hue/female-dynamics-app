@@ -156,7 +156,7 @@ export default function Home() {
 
             {/* 1% Man High-Ticket Hero Section */}
             <motion.section
-                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
                 className="relative pt-44 pb-20 md:pt-56 md:pb-32 px-6 overflow-hidden flex flex-col items-center justify-center min-h-[90vh]"
             >
                 <div className="absolute inset-0 z-0 bg-charcoal-950/50 pointer-events-none scale-110">
@@ -207,7 +207,7 @@ export default function Home() {
 
             {/* Video Testimonials Showcase  */}
             <motion.section
-                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
                 className="relative py-32 px-6 bg-charcoal-950 border-t border-charcoal-800 z-10 overflow-hidden"
             >
                 <div className="max-w-7xl mx-auto relative z-10">
@@ -350,7 +350,7 @@ export default function Home() {
 
             {/* Upcoming VIP Masterclasses & Live Events Section */}
             <motion.section
-                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
                 className="py-24 px-6 bg-charcoal-950 relative z-10 border-t border-charcoal-800"
             >
                 <div className="max-w-7xl mx-auto">
@@ -427,7 +427,7 @@ export default function Home() {
 
             {/* Availability & Business Hours Section */}
             <motion.section
-                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+                variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
                 className="py-20 px-6 bg-gradient-to-b from-charcoal-900 to-charcoal-950 relative z-10 border-t border-charcoal-800"
             >
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
@@ -572,7 +572,7 @@ export default function Home() {
                     )}
 
                     {/* SEO Descriptions */}
-                    <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-60">
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-60">
                         <div className="bg-charcoal-950 border border-charcoal-800 p-6 rounded-xl">
                             <p className="text-xs text-charcoal-500 leading-relaxed text-justify">
                                 <strong>מיינדסט (Mindset) - אופטימיזציה לסמכות מקצועית:</strong> קטגוריית המיינדסט נועדה לבסס עקרונות של התפתחות אישית, דימוי עצמי גבוה, ופסיכולוגיה של שפע מול חרדת ביצוע.
