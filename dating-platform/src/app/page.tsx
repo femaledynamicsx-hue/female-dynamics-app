@@ -485,7 +485,7 @@ export default function Home() {
             {/* Deep Dynamic Content Grid (Pillars & Pagination) */}
             <motion.section
                 variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
-                className="py-32 px-6 bg-charcoal-900 border-t border-charcoal-800 relative z-10" id="blog-section"
+                className="py-16 px-6 bg-charcoal-900 border-t border-charcoal-800 relative z-10" id="blog-section"
             >
                 <div className="max-w-7xl mx-auto">
                     <motion.div variants={slideUpVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-16">

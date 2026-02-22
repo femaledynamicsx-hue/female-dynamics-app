@@ -92,7 +92,7 @@ export default function AboutFounder() {
                         <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:max-w-full lg:mx-0 rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-charcoal-800/50 group">
                             {/* Placeholder Image - Update with actual founder image later */}
                             <Image
-                                src="https://femaledynamics.net/wp-content/uploads/2023/12/%D7%90%D7%95%D7%93%D7%95%D7%9C%D7%91.jpg"
+                                src="https://femaledynamics.net/wp-content/uploads/2024/06/IMG_8367-1448x2048.png"
                                 alt="דולב חדד - מייסד Female Dynamics"
                                 fill
                                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
